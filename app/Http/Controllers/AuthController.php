@@ -9,7 +9,7 @@ use Hash;
 
 class AuthController extends Controller
 {
-    const COOKIES_VALID_TIME = 90; // minutes
+    public const COOKIES_VALID_TIME = 90; // minutes
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
@@ -23,7 +23,7 @@ class AuthController extends Controller
         ]);
         $credentials = $request->only('email', 'password');
 
-        $token = Auth::attempt($credentials);
+        $token = Auth::guard('api')->attempt($credentials);
         if (!$token) {
             return response()->json([
                 'status' => 'error',
@@ -31,7 +31,7 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $user = Auth::user();
+        $user = Auth::guard('api')->user();
 
         return response()->json([
             'status' => 'success',

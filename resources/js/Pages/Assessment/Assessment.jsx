@@ -1,16 +1,16 @@
+import AssessmentForm from "@/Components/Assessment/AssessmentForm";
+import AssessmentTable from "@/Components/Assessment/AssessmentTable";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Dashboard({ auth }) {
+export default function Assessment(props) {
+    const auth = props.auth;
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-        >
-            <Head title="Dashboard" />
+        <AuthenticatedLayout user={auth.user}>
+            <Head title="Dashboard" charSet="utf-8" />
 
             <div className="py-6">
-                <div className="max-w-7xl mx-auto sm:px-3 lg:px-8">
-                    {/* <!-- Breadcrumb --> */}
+                <div className="max-w-screen-2xl mx-auto sm:px-3 lg:px-8">
                     <nav
                         className="flex mb-4 px-5 py-4 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
                         aria-label="Breadcrumb"
@@ -86,6 +86,14 @@ export default function Dashboard({ auth }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             You're logged in!
+                        </div>
+                    </div>
+                    <div className="flex justify-between">
+                        <div className="w-2/3 py-6 mr-3">
+                            <AssessmentTable></AssessmentTable>
+                        </div>
+                        <div className="w-1/3 py-6">
+                            <AssessmentForm></AssessmentForm>
                         </div>
                     </div>
                 </div>
