@@ -45,6 +45,6 @@ class QuestionController extends Controller
             return back()->withErrors(['error' => $e->getMessage()]);
         }
 
-        return Redirect::route('question.create', ['section_id' => $request->section_id]);
+        return Redirect::route('section.show', ['assessment_id' => $question->section->assessment_id,'section_id' => $request->section_id]);
     }
 }

@@ -31,7 +31,7 @@ class QuestionControllerTest extends TestCase
                 'true_answers' => [true, false, false]
             ]);
         
-        $response->assertRedirect('question/' . $section->id);
+        $response->assertRedirect('assessment/' . $section->assessment_id . '/section/' . $section->id);
         $this->assertDatabaseHas(Question::class, ['content' => 'What is this?', 'type' => 'mcq']);
         $this->assertDatabaseHas(Answer::class, ['content' => 'Answer 1']);
     }
