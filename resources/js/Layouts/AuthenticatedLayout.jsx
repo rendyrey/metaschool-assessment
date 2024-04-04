@@ -1,12 +1,13 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
+import ErrorAlert from '@/Components/ErrorAlert';
 import { Link } from '@inertiajs/react';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { isAdmin } from '@/helpers/helper';
 import { useState } from 'react';
 
-export default function Authenticated({ user, header, children }) {
+export default function Authenticated({ user, header, children, flash }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const admin = isAdmin(user)
     
@@ -121,7 +122,10 @@ export default function Authenticated({ user, header, children }) {
                 </header>
             )}
 
-            <main>{children}</main>
+            <main>
+            {flash.error && <ErrorAlert message={flash.error}></ErrorAlert>}
+            {children}
+            </main>
         </div>
     );
 }

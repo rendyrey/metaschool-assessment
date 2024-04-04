@@ -6,7 +6,7 @@ import Card from "@/Components/Card";
 import QuestionForm from "@/Components/Question/QuestionForm";
 import QuestionTable from "@/Components/Question/QuestionTable";
 
-export default function SectionDetail({ auth }) {
+export default function SectionDetail({ auth, flash }) {
     const { section } = usePage().props;
     const paths = [
         {
@@ -19,7 +19,7 @@ export default function SectionDetail({ auth }) {
         },
     ];
     return (
-        <AuthenticatedLayout user={auth.user}>
+        <AuthenticatedLayout user={auth.user} flash={flash}>
             <Head title="Section Detail" />
             <div className="py-6">
                 <div className="w-10/12 mx-auto sm:px-3 lg:px-8">

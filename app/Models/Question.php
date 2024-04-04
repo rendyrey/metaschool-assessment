@@ -12,6 +12,8 @@ class Question extends Model
     use HasFactory;
     protected $table = 'questions';
     protected $with = ['answers'];
+    const MCQ = 'mcq';
+    const MSQ = 'msq';
 
     public function section(): BelongsTo
     {
@@ -21,6 +23,11 @@ class Question extends Model
     public function answers(): HasMany
     {
         return $this->hasMany(Answer::class, 'question_id', 'id');
+    }
+
+    public function totalCorrectAnswer()
+    {
+        return Answer::where('question_id', $this->id)->where('is_correct', 1)->count();
     }
 
 }

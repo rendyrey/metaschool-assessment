@@ -6,6 +6,7 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 /*
@@ -20,17 +21,12 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Redirect::route('login');
 });
 
-Route::get('/assessment', function () {
-    return Inertia::render('Assessment');
-})->middleware(['auth', 'verified'])->name('assessment');
+// Route::get('/assessment', function () {
+//     return Inertia::render('Assessment');
+// })->middleware(['auth', 'verified'])->name('assessment');
 
 Route::middleware('auth')->group(function () {
     Route::controller(AssessmentController::class)->group(function () {
@@ -38,14 +34,18 @@ Route::middleware('auth')->group(function () {
         Route::get('assessment/new', 'new')->name('assessment.new');
         Route::post('assessment/create', 'create')->name('assessment.create');
         Route::get('assessment/{id}', 'show')->name('assessment.show');
+
+        Route::get('assessment/{id}/start', 'start')->name('assessment.start');
+        Route::post('user_assessment/answer', 'questionAnswered')->name('user_assessment.answer');
+        Route::patch('user_assessment/finish/{user_assessment_id}', 'assessmentFinish')->name('user_assessment.finish');
     });
 
-    Route::controller(SectionController::class)->group(function () {
+    Route::controller(SectionController::class)->middleware('role:admin')->group(function () {
         Route::post('assessment/{assessment_id}/section', 'create')->name('section.create');
         Route::get('assessment/{assessment_id}/section/{section_id}', 'show')->name('section.show');
     });
 
-    Route::controller(QuestionController::class)->group(function () {
+    Route::controller(QuestionController::class)->middleware('role:admin')->group(function () {
         Route::post('question/{section_id}', 'create')->name('question.create');
     });
 });

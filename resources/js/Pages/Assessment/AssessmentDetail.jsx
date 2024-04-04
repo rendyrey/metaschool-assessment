@@ -6,7 +6,7 @@ import Card from "@/Components/Card";
 import SectionForm from "@/Components/Section/SectionForm";
 import SectionTable from "@/Components/Section/SectionTable";
 
-export default function AssessmentDetail({ auth }) {
+export default function AssessmentDetail({ auth, flash }) {
     const { assessment } = usePage().props;
     const paths = [
         {
@@ -15,7 +15,7 @@ export default function AssessmentDetail({ auth }) {
         },
     ];
     return (
-        <AuthenticatedLayout user={auth.user}>
+        <AuthenticatedLayout user={auth.user} flash={flash}>
             <Head title="Assessment Detail" />
             <div className="py-6">
                 <div className="w-10/12 mx-auto sm:px-3 lg:px-8">

@@ -40,14 +40,15 @@ export default function AssessmentTable(props) {
                             <thead>
                                 <tr className="bg-gray-100 text-center">
                                     <th className="px-4 py-2 w-1/12">No</th>
-                                    <th className="px-4 py-2 w-2/3">Assessment Title</th>
+                                    <th className="px-4 py-2 w-2/5">Assessment Title</th>
                                     <th className="px-4 py-2">Sections</th>
+                                    <th className="px-4 py-2">User Attempt/Total Attempt</th>
                                     <th className="px-4 py-2">Created at</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {assessments.data.map(
-                                    ({ id, title, created_at, sections }, key) => {
+                                    ({ id, title, created_at, sections, users }, key) => {
                                         return (
                                             <tr key={id}>
                                                 <td className="border px-4 py-2 text-center">
@@ -67,6 +68,7 @@ export default function AssessmentTable(props) {
                                                     </Link>
                                                 </td>
                                                 <td className="border px-4 text-center">{sections.length}</td>
+                                                <td className="border px-4 text-center">{users.length}</td>
                                                 <td className="border px-4 text-center">
                                                     {formattedDate(created_at)}
                                                 </td>

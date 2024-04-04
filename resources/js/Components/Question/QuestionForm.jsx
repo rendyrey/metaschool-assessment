@@ -49,11 +49,17 @@ const QuestionForm = (props) => {
     };
 
     const addMoreAnswerHandler = () => {
+        if (data.answers.length >= 4) return
         data.answers.push("");
         data.true_answers.push(false);
         setData("answers", data.answers);
         setData("true_answers", data.true_answers);
     };
+
+    const deleteAnswerHandler = (index) => {
+        data.answers.splice(index, 1)
+        setData("answers", data.answers);
+    }
 
     const trueAnswerChangeHanlder = (isTrue, answerIndex) => {
         if (data.type == "mcq") {
@@ -122,7 +128,12 @@ const QuestionForm = (props) => {
                                     </span>
                                 </label>
                             )}
+                           
+                            
                         </div>
+                        {i > 0 && <div>
+                            <button className="ml-2 bg-red-600 text-sm rounded-md px-2 text-white hover:bg-red-500" type="button" onClick={() => deleteAnswerHandler(i)}>delete</button>
+                        </div>}
                     </div>
 
                     <TextInput

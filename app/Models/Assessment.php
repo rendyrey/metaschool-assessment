@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Auth;
 
 class Assessment extends Model
 {
@@ -15,7 +16,8 @@ class Assessment extends Model
         'title',
         'user_id'
     ];
-    protected $with = ['sections'];
+    protected $with = ['sections', 'users'];
+    protected $appends = ['user_assessment'];
 
     public function users(): BelongsToMany
     {
@@ -25,5 +27,10 @@ class Assessment extends Model
     public function sections(): HasMany
     {
         return $this->hasMany(Section::class, 'assessment_id', 'id');
+    }
+
+    public function getUserAssessmentAttribute()
+    {
+        return UserAssessment::where('user_id', Auth::user()->id)->where('assessment_id', $this->id)->first();
     }
 }
