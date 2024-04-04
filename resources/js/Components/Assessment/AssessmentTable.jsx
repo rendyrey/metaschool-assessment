@@ -36,7 +36,8 @@ export default function AssessmentTable(props) {
                         <p className="text-center">No data</p>
                     )}
                     {assessments.data.length > 0 && (
-                        <table className="table-fixed w-full">
+                        <div className="overflow-x-auto">
+                        <table className="table-auto w-full">
                             <thead>
                                 <tr className="bg-gray-100 text-center">
                                     <th className="px-4 py-2 w-1/12">No</th>
@@ -78,6 +79,7 @@ export default function AssessmentTable(props) {
                                 )}
                             </tbody>
                         </table>
+                        </div>
                     )}
 
                     <Pagination class="mt-6" links={assessments.links} />

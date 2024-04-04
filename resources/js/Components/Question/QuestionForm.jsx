@@ -24,7 +24,7 @@ const QuestionForm = (props) => {
     } = useForm({
         content: "",
         type: "mcq",
-        answers: [""],
+        answers: ["", ""],
         true_answers: [false],
         section_id: section.id,
     });
@@ -34,7 +34,7 @@ const QuestionForm = (props) => {
             ...data,
             content: "",
             type: "mcq",
-            answers: [""],
+            answers: ["", ""],
             true_answers: [false],
         }));
     }, [wasSuccessful]);
@@ -131,7 +131,7 @@ const QuestionForm = (props) => {
                            
                             
                         </div>
-                        {i > 0 && <div>
+                        {i > 1 && <div>
                             <button className="ml-2 bg-red-600 text-sm rounded-md px-2 text-white hover:bg-red-500" type="button" onClick={() => deleteAnswerHandler(i)}>delete</button>
                         </div>}
                     </div>
