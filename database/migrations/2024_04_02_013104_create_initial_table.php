@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('title');
             $table->timestamps();
 
-            $table->foreign('assessment_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('assessment_id')->references('id')->on('assessments')->cascadeOnDelete();
         });
 
         Schema::create('questions', function(Blueprint $table) {

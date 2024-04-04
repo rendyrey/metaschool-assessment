@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,11 +32,22 @@ Route::get('/assessment', function () {
     return Inertia::render('Assessment');
 })->middleware(['auth', 'verified'])->name('assessment');
 
-Route::controller(AssessmentController::class)->group(function () {
-    Route::get('/assessment', 'index')->name('assessment');
-    Route::get('/assessment/new', 'new')->name('assessment.new');
-    Route::post('/assessment/create', 'create')->name('assessment.create');
-    Route::get('/assessment/{id}', 'show')->name('assessment.show');
+Route::middleware('auth')->group(function () {
+    Route::controller(AssessmentController::class)->group(function () {
+        Route::get('assessment', 'index')->name('assessment');
+        Route::get('assessment/new', 'new')->name('assessment.new');
+        Route::post('assessment/create', 'create')->name('assessment.create');
+        Route::get('assessment/{id}', 'show')->name('assessment.show');
+    });
+
+    Route::controller(SectionController::class)->group(function () {
+        Route::post('assessment/{assessment_id}/section', 'create')->name('section.create');
+        Route::get('assessment/{assessment_id}/section/{section_id}', 'show')->name('section.show');
+    });
+
+    Route::controller(QuestionController::class)->group(function () {
+        Route::post('question/{section_id}', 'create')->name('question.create');
+    });
 });
 
 Route::middleware('auth')->group(function () {

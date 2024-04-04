@@ -39,22 +39,19 @@ export default function AssessmentTable(props) {
                         <table className="table-fixed w-full">
                             <thead>
                                 <tr className="bg-gray-100 text-center">
-                                    <th className="px-4 py-2 w-1/12">No.</th>
-                                    <th className="px-4 py-2 w-2/3">
-                                        Assessment Title
-                                    </th>
+                                    <th className="px-4 py-2 w-1/12">No</th>
+                                    <th className="px-4 py-2 w-2/3">Assessment Title</th>
+                                    <th className="px-4 py-2">Sections</th>
                                     <th className="px-4 py-2">Created at</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {assessments.data.map(
-                                    ({ id, title, created_at }) => {
-                                        const date = new Date(created_at);
-
+                                    ({ id, title, created_at, sections }, key) => {
                                         return (
                                             <tr key={id}>
                                                 <td className="border px-4 py-2 text-center">
-                                                    {id}
+                                                    {key+1}
                                                 </td>
                                                 <td className="border px-4 py-2 text-center">
                                                     <Link
@@ -69,6 +66,7 @@ export default function AssessmentTable(props) {
                                                         {title}
                                                     </Link>
                                                 </td>
+                                                <td className="border px-4 text-center">{sections.length}</td>
                                                 <td className="border px-4 text-center">
                                                     {formattedDate(created_at)}
                                                 </td>
